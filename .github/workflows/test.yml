@@ -1,0 +1,19 @@
+name: Testing PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          TOKEN_GITHUB: ${{secrets.TOKEN_GITHUB}}
+          SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
+          CHANNEL: ${{env.CHANNEL}}
+          USER_ID: ${{env.USER_ID}}
+          TITLE: 'Testing slack command'
+          MESSAGE: 'Testing slack command'

@@ -1,0 +1,32 @@
+
+name: 'Slack notification'
+description: 'Create a post notification into Slack'
+author: 'William Penagos'
+
+branding:
+  icon: 'check-circle'  
+  color: 'green'
+
+inputs:
+  SLACK_TOKEN:
+    description: 'Slack token'
+    required: true
+  CHANNEL:
+    description: 'Slack channel'
+    required: true
+  TOKEN_GITHUB:
+    description: 'TENOR Token to send random gifts'
+    required: false
+  USER_ID:
+    description: 'user ID'
+    required: false
+  TITLE:
+    description: 'Title'
+    required: false
+  MESSAGE:
+    description: 'Message for slack'
+    required: false
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'

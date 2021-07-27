@@ -1,0 +1,35 @@
+{
+  "name": "action-slack-notification",
+  "version": "1.0.0",
+  "description": "Create a post notification into Slack",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ncc build src/action.js -o dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fortil/action-slack-notification.git"
+  },
+  "keywords": [
+    "Slack",
+    "Posts",
+    "Github",
+    "Action"
+  ],
+  "author": "fortil <billalpeza@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fortil/action-slack-notification/issues"
+  },
+  "homepage": "https://github.com/fortil/action-slack-notification#readme",
+  "devDependencies": {
+    "@actions/core": "^1.4.0",
+    "@actions/github": "^5.0.0",
+    "@vercel/ncc": "^0.29.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "node-fetch": "^2.6.1"
+  }
+}
