@@ -4,14 +4,14 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const { isMissingKey } = require("./utils");
 
-const GITHUB_TOKEN = core.getInput('TOKEN_GITHUB');
+// const GITHUB_TOKEN = core.getInput('TOKEN_GITHUB');
 const envs = {
   SLACK_TOKEN: core.getInput('SLACK_TOKEN'),
   channel: core.getInput('CHANNEL'),
   userId: core.getInput('USER_ID'),
   title: core.getInput('TITLE'),
   message: core.getInput('MESSAGE'),
-  octokit: github.getOctokit(GITHUB_TOKEN),
+  // octokit: github.getOctokit(GITHUB_TOKEN),
   context: github.context
 };
 

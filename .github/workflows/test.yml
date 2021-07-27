@@ -1,6 +1,9 @@
 name: Testing PR
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize]
 
@@ -11,9 +14,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          TOKEN_GITHUB: ${{secrets.TOKEN_GITHUB}}
+          # TOKEN_GITHUB: ${{secrets.TOKEN_GITHUB}}
           SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
-          CHANNEL: ${{env.CHANNEL}}
-          USER_ID: ${{env.USER_ID}}
-          TITLE: 'Testing slack command'
-          MESSAGE: 'Testing slack command'
+          CHANNEL: 'asdsa23'
+          # USER_ID: ${{env.USER_ID}}
+          # TITLE: 'Testing slack command'
+          # MESSAGE: 'Testing slack command'

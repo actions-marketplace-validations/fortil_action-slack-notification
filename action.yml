@@ -14,9 +14,9 @@ inputs:
   CHANNEL:
     description: 'Slack channel'
     required: true
-  TOKEN_GITHUB:
-    description: 'TENOR Token to send random gifts'
-    required: false
+  # TOKEN_GITHUB:
+  #   description: 'TENOR Token to send random gifts'
+  #   required: false
   USER_ID:
     description: 'user ID'
     required: false
