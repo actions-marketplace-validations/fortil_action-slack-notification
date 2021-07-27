@@ -38,44 +38,44 @@ async function run() {
   //   throw new Error(`We need ${Object.keys(envs).join(', ')}`)
   // }
 
-  const object = {
-    method: "post",
-    url: "https://slack.com/api/chat.postMessage",
-    headers: {
-      authorization: `Bearer ${SLACK_TOKEN}`,
-      "Content-Type": "application/json",
-    },
-    data: {
-      channel: channel, // git channel
-      attachments: [
-        {
-          color: "#008000",
-          blocks: [
-            {
-              type: "header",
-              text: {
-                type: "plain_text",
-                text: " :eyes: " + title,
-                emoji: true,
-              },
-            },
-            {
-              type: "section",
-              text: {
-                type: "mrkdwn",
-                text: `<@${userId}> \n ${message}`,
-              },
-            },
-            {
-              type: "divider",
-            },
-          ],
-          // footer: 'testing',
-          // footer_icon: 'https://platform.slack-edge.com/img/default_application_icon.png',
-        },
-      ],
-    },
-  };
+  // const object = {
+  //   method: "post",
+  //   url: "https://slack.com/api/chat.postMessage",
+  //   headers: {
+  //     authorization: `Bearer ${SLACK_TOKEN}`,
+  //     "Content-Type": "application/json",
+  //   },
+  //   data: {
+  //     channel: channel, // git channel
+  //     attachments: [
+  //       {
+  //         color: "#008000",
+  //         blocks: [
+  //           {
+  //             type: "header",
+  //             text: {
+  //               type: "plain_text",
+  //               text: " :eyes: " + title,
+  //               emoji: true,
+  //             },
+  //           },
+  //           {
+  //             type: "section",
+  //             text: {
+  //               type: "mrkdwn",
+  //               text: `<@${userId}> \n ${message}`,
+  //             },
+  //           },
+  //           {
+  //             type: "divider",
+  //           },
+  //         ],
+  //         // footer: 'testing',
+  //         // footer_icon: 'https://platform.slack-edge.com/img/default_application_icon.png',
+  //       },
+  //     ],
+  //   },
+  // };
   console.log(Object.keys(github.context))
   console.log(JSON.stringify(github.context, null, ''));
   try {
