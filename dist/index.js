@@ -6320,10 +6320,13 @@ function getActionsAndColor(status) {
 
 function prepareMessage(title, body) {
   const { color, action, emoji } = getActionsAndColor(envs.context.job.status);
-  title = title.replace('{emoji}', emoji);
-  title = title.replace('{workflow}', envs.context.workflow);
-  title = title.replace('{status_message}', action);
-  title = title.replace('{repo}', github.context);
+  title = title.replace('{emoji}', emoji)
+    .replace('{color}', color)
+    .replace('{workflow}', envs.context.workflow)
+    .replace('{status_message}', action)
+    .replace('{repo}', github.context.payload.repository.name)
+    .replace('{html}', github.context.payload.repository.html_url)
+    .replace('{actor}', github.context.actor);
 }
 
 async function run() {
@@ -6369,8 +6372,8 @@ async function run() {
   //     ],
   //   },
   // };
-  console.log(Object.keys(github.context))
-  console.log(JSON.stringify(github.context, null, ''));
+  console.log(Object.keys(github))
+  console.log(JSON.stringify(github, null, ''));
   try {
     // const a = await fetch(object);
     // console.log(a)
