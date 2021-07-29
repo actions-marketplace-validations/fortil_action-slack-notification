@@ -22,6 +22,6 @@ jobs:
           message: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo_name}>'
           footer: 'Linked Repo <{repo_url}|{repo_name}>'
           notify_when: 'success'
-          mention_users: 'DJBCZ3T9C,DHS0U04TF'
+          mention_users: 'UHSK7GXGF,UHXRE0RR8'
           mention_users_when: 'failure,warnings'
           channel: 'C01G7JUCV60'
