@@ -6130,9 +6130,6 @@ function wrappy (fn, cb) {
 /***/ ((module) => {
 
 module.exports.isMissingKey = (object) => {
-  console.log('===>Envs', process.env);
-  console.log('===>object', object);
-
   return Object.keys(object).map(k => !object[k]).filter(f => !!f).some(f => f === true);
 }
 
@@ -6393,10 +6390,10 @@ async function run() {
   };
 
   try {
-    const a = await fetch('https://slack.com/api/chat.postMessage', object);
-    console.log(a)
+    const a = await fetch('https://slack.com/api/chat.postMessage', object).then(res => res.json());
+    console.info('A:', a)
   } catch (error) {
-    console.log(error)
+    console.erro('Error:', error)
   }
 }
 

@@ -100,10 +100,10 @@ async function run() {
   };
 
   try {
-    const a = await fetch('https://slack.com/api/chat.postMessage', object);
-    console.log(a)
+    const a = await fetch('https://slack.com/api/chat.postMessage', object).then(res => res.json());
+    console.info('A:', a)
   } catch (error) {
-    console.log(error)
+    console.erro('Error:', error)
   }
 }
 
