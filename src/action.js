@@ -60,7 +60,7 @@ function prepareMessage() {
 
   if (envs.mentionUsers) {
     envs.mentionUsers.split(',').forEach((u) => {
-      text += `\n <@${u}>`;
+      text += `\n\n<@${u}>`;
     })
   }
 
