@@ -8,9 +8,6 @@ branding:
   color: 'green'
 
 inputs:
-  SLACK_TOKEN:
-    description: 'Slack token'
-    required: true
   channel:
     description: 'Slack channel'
     required: true
