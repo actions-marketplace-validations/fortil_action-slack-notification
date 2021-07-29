@@ -74,7 +74,7 @@ function prepareMessage() {
         pretext: subject,
         color,
         mrkdwn_in: ['text'],
-        footer: foot,
+        footer: foot
       }
     ]
   }
@@ -91,7 +91,7 @@ async function run() {
     // url: 'https://slack.com/api/chat.postMessage',
     headers: {
       authorization: `Bearer ${process.env.SLACK_TOKEN}`,
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
     },
     body: JSON.stringify({
       channel: envs.channel,// git channel
