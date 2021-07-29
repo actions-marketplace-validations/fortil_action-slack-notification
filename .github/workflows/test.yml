@@ -24,4 +24,4 @@ jobs:
           notify_when: 'failure'
           mention_users: 'DJBCZ3T9C,DHS0U04TF'
           mention_users_when: 'failure,warnings'
-          channel: 'C01RXUGBCQ4'
+          channel: 'C01G7JUCV60'
