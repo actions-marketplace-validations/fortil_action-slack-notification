@@ -26,6 +26,18 @@ inputs:
   status:
     description: 'Job status'
     required: true
+  mention_users_when:
+    description: 'Job status'
+    required: false
+  mention_users:
+    description: 'Job status'
+    required: false
+  mention_users:
+    description: 'Job status'
+    required: false
+  notify_when:
+    description: 'Job status'
+    required: false
 
 runs:
   using: 'node12'
