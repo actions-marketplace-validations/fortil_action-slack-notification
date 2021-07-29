@@ -6,11 +6,13 @@ const { isMissingKey } = require("./utils");
 
 // const GITHUB_TOKEN = core.getInput('TOKEN_GITHUB');
 const envs = {
-  SLACK_TOKEN: core.getInput('SLACK_TOKEN'),
-  channel: core.getInput('CHANNEL'),
-  userId: core.getInput('USER_ID'),
-  title: core.getInput('TITLE'),
-  message: core.getInput('MESSAGE'),
+  title: core.getInput('title'),
+  footer: core.getInput('footer'),
+  status: core.getInput('status'),
+  channel: core.getInput('channel'),
+  message: core.getInput('message'),
+  notifyWhen: core.getInput('notify_when'),
+  mentionUsers: core.getInput('mention_users'),
   // octokit: github.getOctokit(GITHUB_TOKEN),
   context: github.context
 };
@@ -25,65 +27,83 @@ function getActionsAndColor(status) {
   }
 }
 
-function prepareMessage(title, body) {
-  const { color, action, emoji } = getActionsAndColor(envs.context.job.status);
-  title = title.replace('{emoji}', emoji)
+function prepareMessage() {
+  const { title, footer, message, status } = envs;
+  const { color, action, emoji } = getActionsAndColor(status);
+  const user = github.context.payload.repository.pusher.name;
+
+  let subject = title.replace('{emoji}', emoji)
     .replace('{color}', color)
-    .replace('{workflow}', envs.context.workflow)
+    .replace('{workflow}', github.context.workflow)
     .replace('{status_message}', action)
-    .replace('{repo}', github.context.payload.repository.name)
-    .replace('{html}', github.context.payload.repository.html_url)
+    .replace('{repo_name}', github.context.payload.repository.name)
+    .replace('{repo_url}', github.context.payload.repository.html_url)
     .replace('{actor}', github.context.actor);
+
+  let text = message.replace('{emoji}', emoji)
+    .replace('{color}', color)
+    .replace('{workflow}', github.context.workflow)
+    .replace('{status_message}', action)
+    .replace('{repo_name}', github.context.payload.repository.name)
+    .replace('{repo_url}', github.context.payload.repository.html_url)
+    .replace('{user}', `<@${user}>`)
+    .replace('{actor}', github.context.actor);
+
+  let foot = footer.replace('{emoji}', emoji)
+    .replace('{color}', color)
+    .replace('{workflow}', github.context.workflow)
+    .replace('{status_message}', action)
+    .replace('{repo_name}', github.context.payload.repository.name)
+    .replace('{repo_url}', github.context.payload.repository.html_url)
+    .replace('{user}', `<@${user}>`)
+    .replace('{actor}', github.context.actor);
+
+  if (envs.notifyWhen && envs.notifyWhen.split(',').includes(status)) {
+    if (envs.mentionUsers) {
+      envs.mentionUsers.split(',').forEach((u) => {
+        text += `<@${u}>`;
+      })
+    }
+  }
+
+  return {
+    attachments: [
+      {
+        text,
+        fallback: subject,
+        pretext: subject,
+        color,
+        mrkdwn_in: ['text'],
+        footer: foot,
+      }
+    ]
+  }
 }
 
 async function run() {
-  // if (isMissingKey(envs)) {
-  //   throw new Error(`We need ${Object.keys(envs).join(', ')}`)
-  // }
+  if (isMissingKey(envs)) {
+    throw new Error(`We need ${Object.keys(envs).join(', ')}`)
+  }
+  const payload = prepareMessage();
 
-  // const object = {
-  //   method: "post",
-  //   url: "https://slack.com/api/chat.postMessage",
-  //   headers: {
-  //     authorization: `Bearer ${SLACK_TOKEN}`,
-  //     "Content-Type": "application/json",
-  //   },
-  //   data: {
-  //     channel: channel, // git channel
-  //     attachments: [
-  //       {
-  //         color: "#008000",
-  //         blocks: [
-  //           {
-  //             type: "header",
-  //             text: {
-  //               type: "plain_text",
-  //               text: " :eyes: " + title,
-  //               emoji: true,
-  //             },
-  //           },
-  //           {
-  //             type: "section",
-  //             text: {
-  //               type: "mrkdwn",
-  //               text: `<@${userId}> \n ${message}`,
-  //             },
-  //           },
-  //           {
-  //             type: "divider",
-  //           },
-  //         ],
-  //         // footer: 'testing',
-  //         // footer_icon: 'https://platform.slack-edge.com/img/default_application_icon.png',
-  //       },
-  //     ],
-  //   },
-  // };
+  const object = {
+    method: "post",
+    url: "https://slack.com/api/chat.postMessage",
+    headers: {
+      authorization: `Bearer ${process.env.SLACK_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    data: {
+      channel: envs.channel,// git channel
+      ...payload
+    },
+  };
+
   console.log(Object.keys(github))
   console.log(JSON.stringify(github, null, ''));
   try {
-    // const a = await fetch(object);
-    // console.log(a)
+    const a = await fetch(object);
+    console.log(a)
   } catch (error) {
     console.log(error)
   }

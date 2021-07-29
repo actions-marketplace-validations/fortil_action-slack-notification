@@ -11,21 +11,24 @@ inputs:
   SLACK_TOKEN:
     description: 'Slack token'
     required: true
-  CHANNEL:
+  channel:
     description: 'Slack channel'
     required: true
-  # TOKEN_GITHUB:
-  #   description: 'TENOR Token to send random gifts'
-  #   required: false
   USER_ID:
     description: 'user ID'
     required: false
-  TITLE:
+  title:
     description: 'Title'
     required: false
-  MESSAGE:
+  message:
     description: 'Message for slack'
+    required: true
+  footer:
+    description: 'Footer Message for slack'
     required: false
+  status:
+    description: 'Job status'
+    required: true
 
 runs:
   using: 'node12'

@@ -9,14 +9,18 @@ on:
 
 jobs:
   test:
+    env:
+      SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
+        if: always()
         with:
-          # TOKEN_GITHUB: ${{secrets.TOKEN_GITHUB}}
-          SLACK_TOKEN: ${{secrets.SLACK_TOKEN}}
-          CHANNEL: 'asdsa23'
-          # USER_ID: ${{env.USER_ID}}
-          # TITLE: 'Testing slack command'
-          # MESSAGE: 'Testing slack command'
+          status: ${{ job.status }}
+          title: '{workflow} has {status_message}'
+          message: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo_name}>'
+          footer: 'Linked Repo <{repo_url}|{repo_name}>'
+          notify_when: 'failure'
+          mention_users: 'DJBCZ3T9C,DHS0U04TF'
+          mention_users_when: 'failure,warnings'
