@@ -93,17 +93,17 @@ async function run() {
       authorization: `Bearer ${process.env.SLACK_TOKEN}`,
       'Content-Type': 'application/json',
     },
-    data: {
+    body: JSON.stringify({
       channel: envs.channel,// git channel
       ...payload
-    },
+    }),
   };
 
   try {
     const a = await fetch('https://slack.com/api/chat.postMessage', object).then(res => res.json());
     console.info('A:', a)
   } catch (error) {
-    console.erro('Error:', error)
+    console.error('Error:', error)
   }
 }
 
