@@ -6323,13 +6323,14 @@ function getActionsAndColor(status) {
 function prepareMessage() {
   const { title, footer, message, status } = envs;
   const { color, action, emoji } = getActionsAndColor(status);
-  const user = github.context.payload.repository.pusher.name;
+  console.log('github.context.payload', github.context.payload)
+  // const user = github.context.payload.repository.pusher.name;
 
   let subject = title.replace('{emoji}', emoji)
     .replace('{color}', color)
     .replace('{workflow}', github.context.workflow)
     .replace('{status_message}', action)
-    .replace('{repo_name}', github.context.payload.repository.name)
+    // .replace('{repo_name}', github.context.payload.repository.name)
     .replace('{repo_url}', github.context.payload.repository.html_url)
     .replace('{actor}', github.context.actor);
 
@@ -6339,7 +6340,7 @@ function prepareMessage() {
     .replace('{status_message}', action)
     .replace('{repo_name}', github.context.payload.repository.name)
     .replace('{repo_url}', github.context.payload.repository.html_url)
-    .replace('{user}', `<@${user}>`)
+    // .replace('{user}', `<@${user}>`)
     .replace('{actor}', github.context.actor);
 
   let foot = footer.replace('{emoji}', emoji)
@@ -6348,7 +6349,7 @@ function prepareMessage() {
     .replace('{status_message}', action)
     .replace('{repo_name}', github.context.payload.repository.name)
     .replace('{repo_url}', github.context.payload.repository.html_url)
-    .replace('{user}', `<@${user}>`)
+    // .replace('{user}', `<@${user}>`)
     .replace('{actor}', github.context.actor);
 
   if (envs.notifyWhen && envs.notifyWhen.split(',').includes(status)) {
