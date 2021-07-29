@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - uses: fortil/action-slack-notification@v1
         if: always()
         with:
           status: ${{ job.status }}

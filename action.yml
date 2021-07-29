@@ -1,5 +1,5 @@
 
-name: 'Slack notification'
+name: 'Slack notification with BOT'
 description: 'Create a post notification into Slack'
 author: 'William Penagos'
 
