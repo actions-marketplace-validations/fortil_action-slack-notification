@@ -6320,33 +6320,33 @@ function getActionsAndColor(status) {
 function prepareMessage() {
   const { title, footer, message, status } = envs;
   const { color, action, emoji } = getActionsAndColor(status);
-  const user = github.context.payload.pusher.name;
+  const user = github?.context?.payload?.pusher?.name;
 
   let subject = title.replace('{emoji}', emoji)
     .replace('{color}', color)
-    .replace('{workflow}', github.context.workflow)
+    .replace('{workflow}', github?.context?.workflow)
     .replace('{status_message}', action)
-    .replace('{repo_name}', github.context.payload.repository.name)
-    .replace('{repo_url}', github.context.payload.repository.html_url)
-    .replace('{actor}', github.context.actor);
+    .replace('{repo_name}', github?.context?.payload?.repository?.name)
+    .replace('{repo_url}', github?.context?.payload?.repository?.html_url)
+    .replace('{actor}', github?.context?.actor);
 
   let text = message.replace('{emoji}', emoji)
     .replace('{color}', color)
-    .replace('{workflow}', github.context.workflow)
+    .replace('{workflow}', github?.context?.workflow)
     .replace('{status_message}', action)
-    .replace('{repo_name}', github.context.payload.repository.name)
-    .replace('{repo_url}', github.context.payload.repository.html_url)
+    .replace('{repo_name}', github?.context?.payload?.repository?.name)
+    .replace('{repo_url}', github?.context?.payload?.repository?.html_url)
     .replace('{user}', `<@${user}>`)
-    .replace('{actor}', github.context.actor);
+    .replace('{actor}', github?.context?.actor);
 
   let foot = footer.replace('{emoji}', emoji)
     .replace('{color}', color)
-    .replace('{workflow}', github.context.workflow)
+    .replace('{workflow}', github?.context?.workflow)
     .replace('{status_message}', action)
-    .replace('{repo_name}', github.context.payload.repository.name)
-    .replace('{repo_url}', github.context.payload.repository.html_url)
+    .replace('{repo_name}', github?.context?.payload?.repository?.name)
+    .replace('{repo_url}', github?.context?.payload?.repository?.html_url)
     .replace('{user}', `<@${user}>`)
-    .replace('{actor}', github.context.actor);
+    .replace('{actor}', github?.context?.actor);
 
   if (envs.mentionUsers) {
     envs.mentionUsers.split(',').forEach((u) => {
