@@ -6372,10 +6372,10 @@ async function run() {
   if (isMissingKey(envs)) {
     throw new Error(`We need ${Object.keys(envs).join(', ')}`)
   }
-  const payload = prepareMessage();
-
+  
   try {
     if (envs.notifyWhen && envs.notifyWhen.split(',').includes(envs.status)) {
+      const payload = prepareMessage();
       const object = {
         method: 'post',
         // url: 'https://slack.com/api/chat.postMessage',
