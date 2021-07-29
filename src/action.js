@@ -58,12 +58,10 @@ function prepareMessage() {
     .replace('{user}', `<@${user}>`)
     .replace('{actor}', github.context.actor);
 
-  if (envs.notifyWhen && envs.notifyWhen.split(',').includes(status)) {
-    if (envs.mentionUsers) {
-      envs.mentionUsers.split(',').forEach((u) => {
-        text += `<@${u}>`;
-      })
-    }
+  if (envs.mentionUsers) {
+    envs.mentionUsers.split(',').forEach((u) => {
+      text += `<@${u}>`;
+    })
   }
 
   return {
@@ -86,22 +84,24 @@ async function run() {
   }
   const payload = prepareMessage();
 
-  const object = {
-    method: 'post',
-    // url: 'https://slack.com/api/chat.postMessage',
-    headers: {
-      authorization: `Bearer ${process.env.SLACK_TOKEN}`,
-      'Content-Type': 'application/json; charset=utf-8',
-    },
-    body: JSON.stringify({
-      channel: envs.channel,// git channel
-      ...payload
-    }),
-  };
-
   try {
-    const a = await fetch('https://slack.com/api/chat.postMessage', object).then(res => res.json());
-    console.info('A:', a)
+    if (envs.notifyWhen && envs.notifyWhen.split(',').includes(envs.status)) {
+      const object = {
+        method: 'post',
+        // url: 'https://slack.com/api/chat.postMessage',
+        headers: {
+          authorization: `Bearer ${process.env.SLACK_TOKEN}`,
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+        body: JSON.stringify({
+          channel: envs.channel,// git channel
+          ...payload
+        }),
+      };
+
+      const a = await fetch('https://slack.com/api/chat.postMessage', object).then(res => res.json());
+      console.info('A:', a)
+    }
   } catch (error) {
     console.error('Error:', error)
   }
